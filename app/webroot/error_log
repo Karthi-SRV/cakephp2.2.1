@@ -1,0 +1,9 @@
+[06-Feb-2015 01:06:48 Asia/Kolkata] PHP Parse error:  syntax error, unexpected end of file in /home/smarttut/public_html/demo_tut/cakephp-authcomponent-login-tutorial/app/Controller/UsersController.php on line 209
+[06-Feb-2015 01:08:39 Asia/Kolkata] PHP Parse error:  syntax error, unexpected end of file in /home/smarttut/public_html/demo_tut/cakephp-authcomponent-login-tutorial/app/Controller/UsersController.php on line 209
+[06-Feb-2015 01:10:05 Asia/Kolkata] PHP Parse error:  syntax error, unexpected end of file in /home/smarttut/public_html/demo_tut/cakephp-authcomponent-login-tutorial/app/Controller/UsersController.php on line 207
+[06-Feb-2015 01:12:35 Asia/Kolkata] PHP Parse error:  syntax error, unexpected end of file in /home/smarttut/public_html/demo_tut/cakephp-authcomponent-login-tutorial/app/Controller/UsersController.php on line 207
+[06-Feb-2015 01:13:35 Asia/Kolkata] PHP Parse error:  syntax error, unexpected end of file in /home/smarttut/public_html/demo_tut/cakephp-authcomponent-login-tutorial/app/Controller/UsersController.php on line 207
+[06-Feb-2015 01:13:39 Asia/Kolkata] PHP Parse error:  syntax error, unexpected end of file in /home/smarttut/public_html/demo_tut/cakephp-authcomponent-login-tutorial/app/Controller/UsersController.php on line 207
+[06-Feb-2015 01:13:57 Asia/Kolkata] PHP Parse error:  syntax error, unexpected end of file in /home/smarttut/public_html/demo_tut/cakephp-authcomponent-login-tutorial/app/Controller/UsersController.php on line 207
+[06-Feb-2015 01:14:37 Asia/Kolkata] PHP Parse error:  syntax error, unexpected end of file in /home/smarttut/public_html/demo_tut/cakephp-authcomponent-login-tutorial/app/Controller/UsersController.php on line 207
+[06-Feb-2015 17:31:21 Asia/Kolkata] PHP Fatal error:  Can't use method return value in write context in /home/smarttut/public_html/demo_tut/cakephp-authcomponent-login-tutorial/app/Controller/AppController.php on line 42

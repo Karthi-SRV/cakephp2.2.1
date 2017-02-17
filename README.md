@@ -10,8 +10,8 @@ Before continuing this tutorial please create sample datebase with table using b
 --
 -- Database: `user_login`
 --
-CREATE DATABASE IF NOT EXISTS `user_login` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `user_login`;
+	CREATE DATABASE IF NOT EXISTS `user_login` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+	USE `user_login`;
 
 -- --------------------------------------------------------
 
@@ -19,19 +19,19 @@ USE `user_login`;
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `email` varchar(60) NOT NULL,
-  `password` varchar(60) NOT NULL,
-  `social_id` varchar(100) NOT NULL,
-  `picture` varchar(250) NOT NULL,
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `uuid` varchar(70) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  KEY `login` (`password`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+	CREATE TABLE IF NOT EXISTS `users` (
+	  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	  `name` varchar(50) NOT NULL,
+	  `email` varchar(60) NOT NULL,
+	  `password` varchar(60) NOT NULL,
+	  `social_id` varchar(100) NOT NULL,
+	  `picture` varchar(250) NOT NULL,
+	  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	  `uuid` varchar(70) NOT NULL,
+	  PRIMARY KEY (`id`),
+	  UNIQUE KEY `email` (`email`),
+	  KEY `login` (`password`)
+	) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 Include and Configure CakePHP AuthComponent In AppController:
  
@@ -45,19 +45,19 @@ To add CakePHP AuthComponent in your web application include following lines of 
 public $components = array('Auth');
 Now Iam going to implement CakePHP AuthComponent login using email instead of username. So we need to configure CakePHP AuthComponent based on email using CakePHP authenticate method. As well as initialize Auth login Loginredirect page, loginAction page and logoutRedirect page like in the below code.
 
-class AppController extends Controller {
-	public $components = array( 'Cookie', 'Session', 'RequestHandler', 'Auth');
-	public $helpers = array('Cache', 'Html', 'Form', 'Session');
+	class AppController extends Controller {
+		public $components = array( 'Cookie', 'Session', 'RequestHandler', 'Auth');
+		public $helpers = array('Cache', 'Html', 'Form', 'Session');
 
-	public function beforeFilter(){
-		$this->Auth->loginAction = array( 'controller' => 'users', 'action' => 'login');
-		$this->Auth->loginRedirect = array( 'controller' => 'users', 'action' => 'index');
-		$this->Auth->logoutRedirect = array( 'controller' => 'users', 'action' => 'login');
-		$this->Auth->authenticate = array( 'Form' => array( 'userModel' => 'User', 'fields' => array( 'username' => 'email', 'password' => 'password')));
-		$this -> set('name', $this->Auth->user('name'));
-		$this -> set('uuid', $this->Auth->user('uuid'));
+		public function beforeFilter(){
+			$this->Auth->loginAction = array( 'controller' => 'users', 'action' => 'login');
+			$this->Auth->loginRedirect = array( 'controller' => 'users', 'action' => 'index');
+			$this->Auth->logoutRedirect = array( 'controller' => 'users', 'action' => 'login');
+			$this->Auth->authenticate = array( 'Form' => array( 'userModel' => 'User', 'fields' => array( 'username' => 'email', 'password' => 'password')));
+			$this -> set('name', $this->Auth->user('name'));
+			$this -> set('uuid', $this->Auth->user('uuid'));
+		}
 	}
-}
 
 Now you successfully included and configured CakePHP Authcomponent.
 
@@ -66,52 +66,52 @@ Create UsersController and add User Login and Registration Page:
 
 Now create UsersController in the app/Controller folder and add beforeFilter method. This beforeFilter method will get excuted before start excute other methods in UsersController. So here i am going to allow few methods not validate user authentication by Authcomponent.
 
-Class UsersController extends AppController
-{
-	public function beforeFilter()
+	Class UsersController extends AppController
 	{
-		$this->Auth->allow( 'register');
-		parent::beforeFilter();
+		public function beforeFilter()
+		{
+			$this->Auth->allow( 'register');
+			parent::beforeFilter();
+		}
 	}
-}
 Now add login and registration method that will handle user login and registration functionality. During user registration we must hash his/her password and save it to the database.
 
 $this->request->data['User']['password'] = $this->Auth->password( $this->request->data['User']['password'] );
 here is the login method script.
 
-public function login()
-{
-	$this->layout = 'login';
-	if ( !empty( $this->request->data )) {
-		$this->Auth->login();
-		$id = $this->Auth->user('id');
-		if (!empty($id)) {
-			$this->Session->setFlash(LOGIN_SUCCESS, 'default', array( 'class' => 'message success'), 'success' );
-			$this->redirect(BASE_PATH);
-		} else {
-			$this->Session->setFlash(LOGIN_ERROR, 'default', array( 'class' => 'message error'), 'error' );
-			$this->redirect(BASE_PATH.'login');
+	public function login()
+	{
+		$this->layout = 'login';
+		if ( !empty( $this->request->data )) {
+			$this->Auth->login();
+			$id = $this->Auth->user('id');
+			if (!empty($id)) {
+				$this->Session->setFlash(LOGIN_SUCCESS, 'default', array( 'class' => 'message success'), 'success' );
+				$this->redirect(BASE_PATH);
+			} else {
+				$this->Session->setFlash(LOGIN_ERROR, 'default', array( 'class' => 'message error'), 'error' );
+				$this->redirect(BASE_PATH.'login');
+			}
 		}
 	}
-}
 here is the registration method script.
 
-public function register()
-{
-	$this->layout = 'login';
-	if( !empty( $this->request->data ) ) {
-		$this->request->data['User']['password'] = $this->Auth->password( $this->request->data['User']['password'] );
-		$this->request->data['User']['uuid'] = String::uuid ();
-		if( $this->User->save( $this->request->data ) ){
-			$this->Session->setFlash(REGISTRATION_SUCCESS, 'default', array( 'class' => 'message error'), 'success' );
-			$this->redirect(BASE_PATH.'login');
-		}else{
-			$this->Session->setFlash(REGISTRATION_FAILURE, 'default', array( 'class' => 'message error'), 'error' );
-			$this->redirect(BASE_PATH.'login');
-		}
+	public function register()
+	{
+		$this->layout = 'login';
+		if( !empty( $this->request->data ) ) {
+			$this->request->data['User']['password'] = $this->Auth->password( $this->request->data['User']['password'] );
+			$this->request->data['User']['uuid'] = String::uuid ();
+			if( $this->User->save( $this->request->data ) ){
+				$this->Session->setFlash(REGISTRATION_SUCCESS, 'default', array( 'class' => 'message error'), 'success' );
+				$this->redirect(BASE_PATH.'login');
+			}else{
+				$this->Session->setFlash(REGISTRATION_FAILURE, 'default', array( 'class' => 'message error'), 'error' );
+				$this->redirect(BASE_PATH.'login');
+			}
 
+		}
 	}
-}
 Create User Login and Registration View Files:
 Now create Users folder in app/View directory, and create following two ctp files login.ctp and register.php
 
