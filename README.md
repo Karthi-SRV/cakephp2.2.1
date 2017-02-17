@@ -1,4 +1,6 @@
+--
 CakePHP v_2.2.1 Auth Component Login Tutorial
+--
 
 In this tutorial we are going to see user login and registration using CakePHP AuthComponent. Every php frameworks will have their own Auth component that will handle user authentcation and authorization functionality. All we need to is just include that login component in our application and write few lines of code that will handle will the login functionality.
 
@@ -8,7 +10,7 @@ Create Sample Database with Tables:
 Before continuing this tutorial please create sample datebase with table using below SQL queries.
 
 --
--- Database: `user_login`
+Database: `user_login`
 --
 	CREATE DATABASE IF NOT EXISTS `user_login` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 	USE `user_login`;
@@ -16,7 +18,7 @@ Before continuing this tutorial please create sample datebase with table using b
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+Table structure for table `users`
 --
 
 	CREATE TABLE IF NOT EXISTS `users` (
@@ -61,7 +63,9 @@ Now Iam going to implement CakePHP AuthComponent login using email instead of us
 
 Now you successfully included and configured CakePHP Authcomponent.
 
+--
 Create UsersController and add User Login and Registration Page:
+--
  
 
 Now create UsersController in the app/Controller folder and add beforeFilter method. This beforeFilter method will get excuted before start excute other methods in UsersController. So here i am going to allow few methods not validate user authentication by Authcomponent.
@@ -112,7 +116,9 @@ here is the registration method script.
 
 		}
 	}
+--
 Create User Login and Registration View Files:
+--
 Now create Users folder in app/View directory, and create following two ctp files login.ctp and register.php
 
 here is login.ctp file form script.
